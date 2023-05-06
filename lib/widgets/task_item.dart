@@ -3,7 +3,8 @@ import 'package:my_todo_list/models/task.dart';
 
 class TaskItem extends StatefulWidget {
   final Task task;
-  const TaskItem({required this.task, super.key});
+  final Function(Task)? onRemove;
+  const TaskItem({required this.task, super.key, this.onRemove });
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -17,13 +18,28 @@ class _TaskItemState extends State<TaskItem> {
         leading: Checkbox(
           value: widget.task.isDone,
           onChanged: (value) {
-            print(value);
+            setState(() {
+              widget.task.isDone = value ?? false;
+            });
           },
         ),
-        title: Text(widget.task.titleInCaps),
-        subtitle: Text(widget.task.date),
+        title: Text(widget.task.title),
+        subtitle: Text(
+          widget.task.date,
+          style: TextStyle(
+            decoration: widget.task.isDone
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+            decorationColor: Colors.red,
+          ),
+        ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            final removeAction = widget.onRemove;
+            if (removeAction != null) {
+              removeAction(widget.task);
+            }
+          },
           icon: const Icon(
             Icons.delete,
             color: Colors.red,
