@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AddTaskForm extends StatefulWidget {
   final Function(String) alDarClick;
@@ -36,6 +37,12 @@ class _AddTaskFormState extends State<AddTaskForm> {
             onPressed: taskTitle.isEmpty
                 ? null
                 : () {
+                    Alert(
+                      context: context,
+                      title: "RFLUTTER ALERT",
+                      desc: "Flutter is more awesome with RFlutter Alert.",
+                    ).show();
+
                     widget.alDarClick(taskTitle);
                   },
             icon: const Icon(Icons.add),

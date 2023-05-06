@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_todo_list/models/task.dart';
 
@@ -40,8 +42,8 @@ class _TaskItemState extends State<TaskItem> {
               removeAction(widget.task);
             }
           },
-          icon: const Icon(
-            Icons.delete,
+          icon: Icon(
+            defaultTargetPlatform == TargetPlatform.iOS ?  CupertinoIcons.delete : Icons.delete,
             color: Colors.red,
           ),
         ),

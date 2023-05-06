@@ -3,6 +3,7 @@ import 'package:my_todo_list/models/task.dart';
 import 'package:my_todo_list/widgets/add_task_form.dart';
 import 'package:my_todo_list/widgets/task_item.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
             alDarClick: (taskTitle) {
               const uuid = Uuid();
               final id = uuid.v1();
-              final task = Task(id: id, title: taskTitle, date: '29-04-2023');
+              final createdDate = DateTime.now();
+              final task = Task(
+                id: id,
+                title: taskTitle,
+                date: DateFormat('dd-MM-yyyy').format(createdDate),
+              );
               setState(() {
                 tasks.add(task);
               });
@@ -38,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: tasks.map((e) {
                 return TaskItem(
                   task: e,
-                  onRemove: (task){
+                  onRemove: (task) {
                     setState(() {
                       tasks.removeWhere((element) {
                         return element.id == task.id;
